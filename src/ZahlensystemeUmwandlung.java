@@ -1,18 +1,86 @@
-import java.util.*;
 import java.util.Scanner;
+
+// Aufgabenstellung: s.u.; Einsendeaufgabe CODIH01-XX01-K03 Nr. 2
 
 public class ZahlensystemeUmwandlung {
     public static void main(String[] args) {
-        System.out.print("Zahl eingeben (Binär- Präfix 0b, Oktal- Präfix 0 oder Hexadezimalzahl Präfix 0x : ");
-        Scanner input = new Scanner(System.in);
 
-        int intInput = input.nextInt();
-        System.out.println("" + intInput);
+        int factor;
+        double decimalOutput;
+        String textInput = "";
+        Scanner scanInput = new Scanner(System.in);
+
+        while (!textInput.equals("0")) {
+            decimalOutput = 0;
+            factor = 1;
+
+            System.out.print("----------- \n"
+                    + "(Binär-Präfix 0b, Oktal-Präfix 0, Hexadezimalzahl-Präfix 0x) \n"
+                    + "Zahl eingeben: ");
+            textInput = String.valueOf(scanInput.nextLine());
+
+
+            if ( textInput.startsWith("0b") ) {
+                textInput = textInput.substring(2);
+
+                for (int i=0; i < textInput.length(); i++) {
+                    //if ( String.valueOf(textInput.charAt(i)).equals("0")
+                    //    || String.valueOf(textInput.charAt(i)).equals("1") ) {
+                        for (int j = textInput.length()-1 -i; j > 0 ; j--){
+                            factor = 2 * factor;
+                        }
+                        decimalOutput += Double.valueOf(String.valueOf(textInput.charAt(i))) * factor;
+                        factor = 1;
+                    //}else{
+                    //    System.out.println("Fehlermeldung: Falsche Eingabe");
+                    //    break;
+                    //}
+                }
+                System.out.println("Binärzahl: 0b" + textInput + "\n"
+                        + "Dezimalzahl: " + decimalOutput);
+
+
+            } else if ( textInput.startsWith("0x") ) {
+                System.out.println("Hexadezimalzahl: " + textInput + "\n"
+                                + "Dezimalzahl: " + decimalOutput);
+
+
+            } else if ( textInput.startsWith("0") && !textInput.equals("0") ) {
+                textInput = textInput.substring(1);
+
+                for (int i=0; i < textInput.length(); i++) {
+                    for (int j = textInput.length()-1 -i; j > 0 ; j--){
+                        factor = 8 * factor;
+                    }
+                    decimalOutput = Double.valueOf(String.valueOf(textInput.charAt(i))) * factor + decimalOutput;
+                    factor = 1;
+                }
+                System.out.println("Oktalzahl: " + textInput + "\n"
+                        + "Dezimalzahl: " + decimalOutput);
+
+
+            } else if ( textInput.equals("0") ) {
+                System.out.print("0 ist 0 ist 0." + " "); //siehe Bläck Fööss
+
+            } else {
+                System.out.println("Fehlermeldung: Falsche Eingabe");
+            }
+        }
+
+        System.out.println("Programm beendet. \n -----------");
+
+
+        //intInput = scanInput.nextInt();
+        //System.out.println("" + intInput);
+        //System.out.println("" + textInput);
+        //System.out.println(String.valueOf(scanInput));
+
+
     }
 }
 
 /**
- * Erstellen Sie ein Java-Programm, das
+ * 2. Erstellen Sie ein Java-Programm, das
  * Binärzahlen (Basis 2), Oktalzahlen (Basis 8) und Hexadezimalzahlen (Basis 16)
  * als Strings von der Konsole einliest und dann den eingelesenen String
  * in eine Integerzahl umwandelt und das Ergebnis als Dezimalzahl auf der Konsole ausgibt.

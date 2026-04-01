@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 // Aufgabenstellung: s.u.; Einsendeaufgabe CODIH01-XX01-K03 Nr. 2
 
+//TODO Methoden aufspalten?
+
 public class ZahlensystemeUmwandlung {
     public static void main(String[] args) {
 
